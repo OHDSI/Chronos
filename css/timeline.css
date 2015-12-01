@@ -1,0 +1,19 @@
+tl * {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.tl-axis {
+  shape-rendering: crispEdges;
+}
+
+.tl-x.tl-axis line {
+  stroke: lightgray;
+}
+
+.tl-x.tl-axis .minor {
+  stroke-opacity: .5;
+}
+
+.tl-x.tl-axis path {
+  display: none;
+}

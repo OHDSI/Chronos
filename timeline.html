@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Timeline View</title>
+  <meta charset="utf-8">
+  <script src="lib/d3.min.js" charset="utf-8"></script>
+  <script src="js/timeline.js" charset="utf-8"></script>
+  <link href="css/timeline.css" link rel="stylesheet" type="text/css" charset="utf-8">
+</head>
+<body onload="start()">
+
+<div id="divTimeline" class="tl"></div>
+
+<script>
+function start() {
+  var w = 800;
+  var h = 600;
+  var radius = 2;
+  var textHeight = 20;
+
+  var content = d3.select("#divTimeline");
+  var timeline = new Timeline(content, w, h, radius, textHeight);
+
+  d3.json("http://api.ohdsi.org/WebAPI/CS1/person/1", function(err, data) {
+    if(err) {
+      console.warn(err);
+      return;
+    }
+    var events = data["records"].map(function(e) {
+      return {
+        "name": e["conceptName"],
+        "group": e["recordType"],
+        "id": e["conceptId"],
+        "time": +e["startDate"]
+      };
+    });
+    timeline.loadEvents(events);
+  });
+}
+</script>
+
+</body>
+</html>
